@@ -73,10 +73,6 @@ export const LoginForm: React.FC = () => {
     setShowPassword((prev) => !prev);
   };
 
-  useEffect(() => {
-    console.log("alertState:::", alertState);
-  }, [alertState]);
-
   return (
     <Container>
       <Formik
@@ -148,7 +144,7 @@ export const LoginForm: React.FC = () => {
               </div>
               <div className="mt-2">
                 <Button type="submit" className={`w-full`}>
-                  Submit
+                  Login
                 </Button>
               </div>
             </div>
