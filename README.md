@@ -1,1 +1,0 @@
-# plagiarism-checker-jan-frontend
