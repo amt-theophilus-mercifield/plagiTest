@@ -30,6 +30,8 @@ export const LoginForm: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const [forgotPassword, setForgotPassword] = useState(false);
+
   const handleSubmit = (values: FormValues): void => {
     console.log(values);
     // Here you can make API calls for authentication
@@ -73,6 +75,10 @@ export const LoginForm: React.FC = () => {
     setShowPassword((prev) => !prev);
   };
 
+  const handleForgotPassword = () => {
+    setForgotPassword(true);
+  };
+
   return (
     <Container>
       <Formik
@@ -89,64 +95,133 @@ export const LoginForm: React.FC = () => {
                 alt=""
                 className={`object-contain h-[50px] self-baseline`}
               />
-              <h3 className={`text-2xl font-bold`}>Login</h3>
+              <h3 className={`text-2xl font-bold`}>
+                {forgotPassword ? "Forgot password" : "Login"}
+              </h3>
               <span className={`font`}>
-                Please enter your login details below to access your account.
+                {forgotPassword
+                  ? "Please enter your email to receive the reset link in your mail."
+                  : "Please enter your login details below to access your account."}
               </span>
-              {/* </div> */}
-              <div className="mt-2">
-                <Field
-                  as={TextField}
-                  name="username"
-                  label="Email or Staff ID"
-                  variant="outlined"
-                  fullWidth
-                  error={errors.username && touched.username}
-                  helperText={
-                    errors.username && touched.username ? errors.username : ""
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <RiMailSendLine />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+              <div>
+                {forgotPassword ? (
+                  // Password reset form
+                  <div className="mt-2">
+                    <Field
+                      as={TextField}
+                      name="username"
+                      label="Email"
+                      variant="outlined"
+                      fullWidth
+                      error={errors.username && touched.username}
+                      helperText={
+                        errors.username && touched.username
+                          ? errors.username
+                          : ""
+                      }
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <RiMailSendLine />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </div>
+                ) : (
+                  //login form
+                  <div>
+                    <div className="mt-2">
+                      <Field
+                        as={TextField}
+                        name="username"
+                        label="Email or Staff ID"
+                        variant="outlined"
+                        fullWidth
+                        error={errors.username && touched.username}
+                        helperText={
+                          errors.username && touched.username
+                            ? errors.username
+                            : ""
+                        }
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <RiMailSendLine />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </div>
+                    <div className="mt-7">
+                      <Field
+                        as={TextField}
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        label="Password"
+                        variant="outlined"
+                        fullWidth
+                        error={errors.password && touched.password}
+                        helperText={
+                          errors.password && touched.password
+                            ? errors.password
+                            : ""
+                        }
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <FaLock />
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton onClick={TogglePasswordVisibility}>
+                                {showPassword ? <FiEye /> : <FiEyeOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="mt-2">
-                <Field
-                  as={TextField}
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  label="Password"
-                  variant="outlined"
-                  fullWidth
-                  error={errors.password && touched.password}
-                  helperText={
-                    errors.password && touched.password ? errors.password : ""
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FaLock />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={TogglePasswordVisibility}>
-                          {showPassword ? <FiEye /> : <FiEyeOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
+              {!forgotPassword && (
+                <div className="flex justify-between w-[100%]">
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      name=""
+                      id=""
+                      style={{ width: "16px", height: "16px" }}
+                    />
+                    <p>Remember me</p>
+                  </div>
+                  <div>
+                    <button
+                      onClick={handleForgotPassword}
+                      className="text-[14px] text-[#0267FF]"
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+                </div>
+              )}
+              
               <div className="mt-2">
                 <Button type="submit" className={`w-full`}>
-                  Login
+                  {forgotPassword ? "Send reset link" : "Login"}
                 </Button>
               </div>
+              
+              {forgotPassword && (
+                <Button
+                  type="submit"
+                  className="text-[#1A1A2A]"
+                >
+                  Back to Login
+                </Button>
+              )}
             </div>
           </Form>
         )}
