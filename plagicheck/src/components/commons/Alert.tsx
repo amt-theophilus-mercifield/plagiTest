@@ -5,9 +5,9 @@ import { atom, useAtom } from "jotai";
 
 export const errorAtom = atom({ msg: "", error: false, show: false });
 
-type Props = {};
+// type Props = {};
 
-const Alert = (props: Props) => {
+const Alert = () => {
   const [isError, setIsError] = useAtom(errorAtom);
   return (
     <div
