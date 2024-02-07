@@ -1,9 +1,13 @@
-import React from 'react'
+import Alert from "./commons/Alert";
+import { LoginForm } from "./commons/LoginForm";
 
 const LoginPage = () => {
   return (
-    <div>LoginPage</div>
-  )
-}
+    <main className="w-screen h-screen flex justify-center items-center">
+      <LoginForm />
+      <Alert />
+    </main>
+  );
+};
 
-export default LoginPage
+export default LoginPage;
