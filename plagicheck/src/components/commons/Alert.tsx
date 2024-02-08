@@ -3,7 +3,7 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 import { GrStatusGood } from "react-icons/gr";
 import { atom, useAtom } from "jotai";
 
-export const errorAtom = atom({ msg: "", error: false, show: false });
+export const errorAtom = atom({ message: "", error: false, show: false });
 
 // type Props = {};
 
@@ -27,9 +27,13 @@ const Alert = () => {
           isError.error ? "text-red-600" : "text-green-600"
         } w-full pl-2 justify-start`}
       >
-        {isError.msg}
+        {isError.message}
       </span>
-      <IoMdClose className="w-8 self-center" />
+      <IoMdClose
+        className={`${
+          isError.error ? "text-red-600" : "text-green-600"
+        } w-8 self-center`}
+      />
     </div>
   );
 };

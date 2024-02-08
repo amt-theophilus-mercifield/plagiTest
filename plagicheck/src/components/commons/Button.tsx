@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const Button = styled.button`
+interface ButtonProps {
+    variant?: string
+}
+
+export const Button : ButtonProps = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,7 +32,7 @@ export const Button = styled.button`
 
 export const SecondaryButton = styled(Button)`
   background-color: white;
-  border: ${({ variant }) => (variant === 'plain' ? '1px solid #a6a6ab' : 'none')};
+  border: ${({variant}) => (variant === 'plain' ? '1px solid #a6a6ab' : 'none')};
   color: #333441;
   &:hover {
     background-color: #e9e9ea;
@@ -38,7 +42,7 @@ export const SecondaryButton = styled(Button)`
   }
 `
 
-export const ErrorButton = styled(Button)`
+export const ErrorButton = styled(Button)<ButtonProps>`
   background-color: #ff0000;
   &:hover {
     background-color: #ff6666;

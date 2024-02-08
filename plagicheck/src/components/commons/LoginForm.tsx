@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Formik, Form, Field } from "formik";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { object, string } from "yup";
-import {Button, SecondaryButton} from "./Button";
+import { Button, SecondaryButton } from "./Button";
 import { RiMailSendLine } from "react-icons/ri";
 import { FaLock } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -35,19 +35,19 @@ export const LoginForm: React.FC = () => {
 
   const handleSubmit = (values: FormValues): void => {
     console.log(values);
-    // Here you can make API calls for authentication
+    // API calls for authentication
 
-    const res = {
-      msg: "Wrong credentials",
-      status: 100,
+    const loginRes = {
+      message: "Login successful",
+      status: 200,
     };
 
-    if (res.status === 200 || res.status === 201) {
+    if (loginRes.status === 200 || loginRes.status === 201) {
       setAlertState(() => {
         return {
           show: true,
           error: false,
-          msg: "Login successful",
+          message: loginRes.message,
         };
       });
     } else {
@@ -55,7 +55,7 @@ export const LoginForm: React.FC = () => {
         return {
           show: true,
           error: true,
-          msg: "Wrong  credentials",
+          message: "Wrong credentials",
         };
       });
     }
@@ -68,8 +68,38 @@ export const LoginForm: React.FC = () => {
         };
       });
     }, 2000);
+  };
 
-    // setAlertState()
+  const handlePasswordReset = () => {
+    const passwordResetRes = {
+      message: "Check your email to reset password",
+      status: 200,
+    };
+
+    if (passwordResetRes.status === 200 || passwordResetRes.status === 201) {
+      setAlertState({
+        show: true,
+        error: false,
+        message: passwordResetRes.message,
+      });
+    } else {
+      setAlertState(() => {
+        return {
+          show: true,
+          error: true,
+          message: passwordResetRes.message,
+        };
+      });
+    }
+
+    setTimeout(() => {
+      setAlertState((prev) => {
+        return {
+          ...prev,
+          show: false,
+        };
+      });
+    }, 2000);
   };
 
   const TogglePasswordVisibility = () => {
@@ -78,6 +108,10 @@ export const LoginForm: React.FC = () => {
 
   const handleForgotPassword = () => {
     setForgotPassword(true);
+  };
+
+  const toggleBackToLogin = () => {
+    setForgotPassword(false);
   };
 
   return (
@@ -208,19 +242,27 @@ export const LoginForm: React.FC = () => {
                   </div>
                 </div>
               )}
-              
+
               <div className="mt-2">
-                <Button type="submit" className={`w-full`}>
-                  {forgotPassword ? "Send reset link" : "Login"}
-                </Button>
+                {forgotPassword ? (
+                  <Button
+                    className={`w-full`}
+                    type="button"
+                    onClick={handlePasswordReset}
+                  >
+                    Send reset link
+                  </Button>
+                ) : (
+                  <Button className={`w-full`} type="submit">
+                    Login
+                  </Button>
+                )}
               </div>
-              
+
               {forgotPassword && (
-                <SecondaryButton
-                  type="submit"
-                  className="text-[#1A1A2A]"
-                >
-                  <FaArrowLeftLong />Back to Login
+                <SecondaryButton onClick={toggleBackToLogin}>
+                  <FaArrowLeftLong />
+                  Back to Login
                 </SecondaryButton>
               )}
             </div>
