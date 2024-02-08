@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Formik, Form, Field } from "formik";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { object, string } from "yup";
-import { Button } from "./Button";
+import { Button, SecondaryButton } from "./Button";
 import { RiMailSendLine } from "react-icons/ri";
 import { FaLock } from "react-icons/fa";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -31,6 +31,8 @@ export const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [forgotPassword, setForgotPassword] = useState(false);
+
+  const [formValues, setFormValues] = useState(initialValues)
 
   const handleSubmit = (values: FormValues): void => {
     console.log(values);
@@ -78,6 +80,7 @@ export const LoginForm: React.FC = () => {
   const handleForgotPassword = () => {
     setForgotPassword(true);
   };
+
 
   return (
     <Container>
@@ -207,20 +210,28 @@ export const LoginForm: React.FC = () => {
                   </div>
                 </div>
               )}
-              
+
               <div className="mt-2">
-                <Button type="submit" className={`w-full`}>
-                  {forgotPassword ? "Send reset link" : "Login"}
-                </Button>
+                {!forgotPassword ? (
+                  <Button type="submit" className={`w-full`}>
+                    Login
+                  </Button>
+                ) : (
+
+               
+                  <Button type="submit" className={`w-full`}>
+                    Send reset link
+                  </Button>
+                )}
               </div>
-              
+
               {forgotPassword && (
-                <Button
+                <SecondaryButton
                   type="submit"
-                  className="text-[#1A1A2A]"
+                  className="text-[#1A1A2A]!important"
                 >
                   Back to Login
-                </Button>
+                </SecondaryButton>
               )}
             </div>
           </Form>
