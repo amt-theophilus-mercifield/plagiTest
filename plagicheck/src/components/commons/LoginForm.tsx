@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { Formik, Form, Field } from "formik";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { object, string } from "yup";
-import { Button, SecondaryButton } from "./Button";
+import {Button, SecondaryButton} from "./Button";
 import { RiMailSendLine } from "react-icons/ri";
 import { FaLock } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Logo from "../../assets/plagicheck-logo.png";
 import { useAtom } from "jotai";
@@ -231,7 +232,7 @@ export const LoginForm: React.FC = () => {
                   className="text-[#1A1A2A]!important"
                 >
                   Back to Login
-                </SecondaryButton>
+                </Button>
               )}
             </div>
           </Form>
