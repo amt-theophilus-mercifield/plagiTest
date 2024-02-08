@@ -1,12 +1,15 @@
 import styled from 'styled-components'
 
 export const Button = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
   background-color: #0267ff;
   border: none;
   color: white;
   padding: 10px 20px;
   text-align: center;
-  display: inline-block;
   font-size: 16px;
   cursor: pointer;
   border-radius: 8px;
@@ -25,7 +28,7 @@ export const Button = styled.button`
 
 export const SecondaryButton = styled(Button)`
   background-color: white;
-  border: 1px solid #a6a6ab;
+  border: ${({ variant }) => (variant === 'plain' ? '1px solid #a6a6ab' : 'none')};
   color: #333441;
   &:hover {
     background-color: #e9e9ea;
