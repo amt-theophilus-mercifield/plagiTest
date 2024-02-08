@@ -33,6 +33,8 @@ export const LoginForm: React.FC = () => {
 
   const [forgotPassword, setForgotPassword] = useState(false);
 
+  const [formValues, setFormValues] = useState(initialValues)
+
   const handleSubmit = (values: FormValues): void => {
     console.log(values);
     // API calls for authentication
@@ -110,9 +112,12 @@ export const LoginForm: React.FC = () => {
     setForgotPassword(true);
   };
 
+<<<<<<< HEAD
   const toggleBackToLogin = () => {
     setForgotPassword(false);
   };
+=======
+>>>>>>> 27c762119f1954324906d46ba5c1aaaa6b422842
 
   return (
     <Container>
@@ -244,6 +249,7 @@ export const LoginForm: React.FC = () => {
               )}
 
               <div className="mt-2">
+<<<<<<< HEAD
                 {forgotPassword ? (
                   <Button
                     className={`w-full`}
@@ -256,14 +262,35 @@ export const LoginForm: React.FC = () => {
                   <Button className={`w-full`} type="submit">
                     Login
                   </Button>
+=======
+                {!forgotPassword ? (
+                  <Button type="submit" className={`w-full`}>
+                    Login
+                  </Button>
+                ) : (
+
+               
+                  <Button type="submit" className={`w-full`}>
+                    Send reset link
+                  </Button>
+>>>>>>> 27c762119f1954324906d46ba5c1aaaa6b422842
                 )}
               </div>
 
               {forgotPassword && (
+<<<<<<< HEAD
                 <SecondaryButton onClick={toggleBackToLogin}>
                   <FaArrowLeftLong />
                   Back to Login
                 </SecondaryButton>
+=======
+                <SecondaryButton
+                  type="submit"
+                  className="text-[#1A1A2A]!important"
+                >
+                  Back to Login
+                </Button>
+>>>>>>> 27c762119f1954324906d46ba5c1aaaa6b422842
               )}
             </div>
           </Form>
