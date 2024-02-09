@@ -31,8 +31,8 @@ export const Button : ButtonProps = styled.button`
 `
 
 export const SecondaryButton = styled(Button)`
-  background-color: white;
-  border: ${({variant}) => (variant === 'plain' ? '1px solid #a6a6ab' : 'none')};
+  background-color: transparent;
+  border: ${({variant}) => (variant === 'plain' ? 'none' : '1px solid #a6a6ab')};
   color: #333441;
   &:hover {
     background-color: #e9e9ea;

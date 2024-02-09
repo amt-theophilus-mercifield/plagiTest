@@ -262,7 +262,7 @@ export const LoginForm: React.FC = () => {
               </div>
 
               {forgotPassword && (
-                <SecondaryButton onClick={toggleBackToLogin}>
+                <SecondaryButton variant='plain' onClick={toggleBackToLogin}>
                   <FaArrowLeftLong />
                   Back to Login
                 </SecondaryButton>
