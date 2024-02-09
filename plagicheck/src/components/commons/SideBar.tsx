@@ -1,4 +1,4 @@
-import logo from "./../asset/logo.png";
+import logo from "./../../assets/plagicheck-logo.png";
 import { MdOutlineDashboard } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import { MdSchedule } from "react-icons/md";
@@ -10,13 +10,12 @@ import { HiOutlineAcademicCap } from "react-icons/hi2";
 import { LuHistory } from "react-icons/lu";
 import { SlLogout } from "react-icons/sl";
 
-
 export const Sidebar = () => {
   return (
     <div className="bg-[#E9E9EA] h-screen w-[270px] ">
       <div className="flex flex-col  items-center">
         <div>
-          <img src={logo} alt="" className="mt-10 mb-9" />
+          <img src={logo} alt="" className="mt-10 mb-9 w-[220px]" />
         </div>
         <div>
           <ul>
@@ -25,7 +24,7 @@ export const Sidebar = () => {
               <li className="px-2 ">Dashboard</li>
             </div>
             <div className="flex items-center pb-2">
-              <LuCopyCheck style={{ width: "24px", height: "24px" }} />{" "}
+              <LuCopyCheck style={{ width: "24px", height: "24px" }} />
               <li className="px-2"> Plagarism Checker</li>
             </div>
             <div className="pl-7">
@@ -59,7 +58,7 @@ export const Sidebar = () => {
               <li className="px-2">Account settings</li>
             </div>
             <div className="flex items-center">
-              <SlLogout/>
+              <SlLogout />
               <li className="px-2  ">Log out</li>
             </div>
           </ul>
