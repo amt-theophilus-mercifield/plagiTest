@@ -9,15 +9,19 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
 import { LuHistory } from "react-icons/lu";
 import { SlLogout } from "react-icons/sl";
+import Sidemenu from "./Sidemenu";
 
 export const Sidebar = () => {
   return (
-    <div className="bg-[#E9E9EA] h-screen w-[270px] ">
-      <div className="flex flex-col  items-center">
+    <div className="bg-[#E9E9EA] h-screen ">
+      <div className="flex flex-col items-center">
         <div>
           <img src={logo} alt="" className="mt-10 mb-9 w-[220px]" />
         </div>
         <div>
+          <Sidemenu />
+        </div>
+        {/* <div>
           <ul>
             <div className="flex items-center pb-4">
               <MdOutlineDashboard style={{ width: "24px", height: "24px" }} />
@@ -62,7 +66,7 @@ export const Sidebar = () => {
               <li className="px-2  ">Log out</li>
             </div>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );
