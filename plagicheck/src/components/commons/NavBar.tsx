@@ -5,7 +5,7 @@ import profile from "./../../assets/profile.png";
 
 export const NavBar = () => {
   return (
-    <div className="flex justify-between h-[88px] border-b border-gray-300 py-[19px] px-[41px]">
+    <div className="flex justify-between h-[88px] border-b border-gray-300 py-[19px] px-[41px] ">
       <Stack direction="column" spacing={1.3}>
         <TextField
           placeholder="Search anything here"
