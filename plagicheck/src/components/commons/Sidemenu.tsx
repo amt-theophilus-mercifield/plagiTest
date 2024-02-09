@@ -64,6 +64,15 @@ interface SidemenuProps {
 
 const Sidemenu = ({ label, icon, isActive, onClick }: SidemenuProps) => {
   const [activeTab, setActiveTab] = useState("Dashboard");
+  const [TabState, setTabState] = useState({
+    dashboard: true,
+    plagiarismChecher: false,
+    academicDivision: false,
+    archive: false,
+    manageUsers: false,
+    accountSettings: false,
+  });
+
   return (
     <MenuBar>
       {menuItems.map((menuItem, id) => {
