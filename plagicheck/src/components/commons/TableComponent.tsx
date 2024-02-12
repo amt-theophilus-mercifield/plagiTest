@@ -35,12 +35,12 @@ interface TableProps {
             )}
           </thead>
           <tbody>
-            {tableData.map((data) => {
+            {tableData.map((data, index) => {
               return (
-                <tr className="h-[74px]">
-                  {tableHeaders.map((header) => {
+                <tr key={index} className="h-[74px]">
+                  {tableHeaders.map((header, headerIndex) => {
                     return (
-                      <td>
+                      <td key={headerIndex}>
                         {header.key === "full_name" ? (
                           <div className="w-[100%] h-[100%] flex gap-4 items-center">
                             <img

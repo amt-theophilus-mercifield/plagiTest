@@ -1,8 +1,12 @@
-import React from 'react'
+import { TableComponent } from "../commons/TableComponent"
+import { lecturersHeaders, persons } from '../../assets/mock-data-min.js'
+
 
 const Archive = () => {
   return (
-    <div>Archive</div>
+    <div className="">
+      <TableComponent tableHeaders={lecturersHeaders} tableData={persons} showHeader={true}   />
+    </div>
   )
 }
 
