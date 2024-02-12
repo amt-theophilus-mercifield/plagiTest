@@ -1,14 +1,14 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 interface ButtonProps {
-    variant?: string
+  variant?: string;
 }
 
-export const Button : ButtonProps = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
+export const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   background-color: #0267ff;
   border: none;
   color: white;
@@ -28,11 +28,12 @@ export const Button : ButtonProps = styled.button`
     opacity: 0.2;
     cursor: not-allowed;
   }
-`
+`;
 
 export const SecondaryButton = styled(Button)`
   background-color: transparent;
-  border: ${({variant}) => (variant === 'plain' ? 'none' : '1px solid #a6a6ab')};
+  border: ${({ variant }) =>
+    variant === "plain" ? "none" : "1px solid #a6a6ab"};
   color: #333441;
   &:hover {
     background-color: #e9e9ea;
@@ -40,7 +41,7 @@ export const SecondaryButton = styled(Button)`
   &:active {
     background-color: #a6a6ab;
   }
-`
+`;
 
 export const ErrorButton = styled(Button)<ButtonProps>`
   background-color: #ff0000;
@@ -50,4 +51,4 @@ export const ErrorButton = styled(Button)<ButtonProps>`
   &:active {
     background-color: #cc0000;
   }
-`
+`;

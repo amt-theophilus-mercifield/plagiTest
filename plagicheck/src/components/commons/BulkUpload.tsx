@@ -1,10 +1,23 @@
 import styled from "styled-components";
-import { Button, SecondaryButton } from "./Button";
+import { SecondaryButton } from "./Button";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useState } from "react";
 
 type Props = {};
 
 const BulkUpload = (props: Props) => {
+  const [file, setFile] = useState(null);
+
+  const handleUpload = () => {
+    // work on file
+    if (!file) {
+      console.log("No file selected");
+      return;
+    }
+    const fd = new FormData();
+    fd.append("file", file);
+  };
+
   return (
     <Container>
       <div className="Wrapper w-[100%] flex flex-col gap-10 items-start">
@@ -43,7 +56,12 @@ const BulkUpload = (props: Props) => {
             Choose a CSV file from your computer to initiate the bulk upload
             process.
           </p>
-          <Button className="!w-[197px]">Browse</Button>
+          <div className="browse h-full">
+            <label htmlFor="browse" className="">
+              Browse
+            </label>
+            <input type="file" id="browse" hidden onChange={handleUpload} />
+          </div>
         </div>
       </div>
     </Container>
@@ -58,5 +76,32 @@ const Container = styled.div`
 
   h3 {
     font-weight: bold;
+  }
+
+  .browse {
+    display: flex;
+    width: 197px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background-color: #0267ff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease 0s;
+    &:hover {
+      background-color: #67a4ff;
+    }
+    &:active {
+      background-color: #0252cc;
+    }
+    &:disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+    }
   }
 `;

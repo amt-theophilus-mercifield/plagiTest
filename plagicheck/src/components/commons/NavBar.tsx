@@ -28,7 +28,11 @@ export const NavBar = () => {
       <div>
         <div className="flex item-center gap-4">
           <div className="profile w-[50px] h-[50px]  relative">
-            <img src={profile} alt="" className="w-full h-full object-cover rounded-[50%] overflow-hidden" />
+            <img
+              src={profile}
+              alt=""
+              className="w-full h-full object-cover rounded-[50%] overflow-hidden"
+            />
             <div className="active-status w-[16px] h-[16px] bg-white rounded-[50%] flex items-center justify-center absolute bottom-0 right-0">
               <div className="inner w-[13px] h-[13px] bg-[#00E600] rounded-[50%]" />
             </div>

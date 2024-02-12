@@ -39,6 +39,23 @@ export const LoginForm: React.FC = () => {
     console.log(values);
     // API calls for authentication
 
+    fetch("http://localhost:8000/home", {
+      method: "POST",
+      body: JSON.stringify({
+        userName: formValues.username,
+        password: formValues.password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     const loginRes = {
       message: "Login successful",
       status: 200,
@@ -262,7 +279,7 @@ export const LoginForm: React.FC = () => {
               </div>
 
               {forgotPassword && (
-                <SecondaryButton variant='plain' onClick={toggleBackToLogin}>
+                <SecondaryButton variant="plain" onClick={toggleBackToLogin}>
                   <FaArrowLeftLong />
                   Back to Login
                 </SecondaryButton>

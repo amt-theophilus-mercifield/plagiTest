@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, SecondaryButton } from "./Button";
 import { MdOutlineDashboard } from "react-icons/md";
-// import { CiSearch } from "react-icons/ci";
-// import { MdSchedule } from "react-icons/md";
 import { LuCopyCheck } from "react-icons/lu";
 import { GoDatabase } from "react-icons/go";
 import { PiUsersThree } from "react-icons/pi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+// import { CiSearch } from "react-icons/ci";
+// import { MdSchedule } from "react-icons/md";
 // import { LuHistory } from "react-icons/lu";
 // import { SlLogout } from "react-icons/sl";
 
@@ -16,69 +17,54 @@ const menuItems = [
   {
     label: "Dashboard",
     icon: <MdOutlineDashboard />,
-    isActive: true,
-    onClick: "handleClick",
+    key: "dashboard",
   },
   {
     label: "Plaigiarism checker",
     icon: <LuCopyCheck />,
-    isActive: false,
-    onClick: "handleClick",
+    key: "plagiarism-checker",
   },
   {
     label: "Academic Division",
     icon: <HiOutlineAcademicCap />,
-    isActive: false,
-    onClick: "handleClick",
+    key: "academic-division",
   },
   {
     label: "Archive",
     icon: <GoDatabase />,
-    isActive: false,
-    onClick: "handleClick",
+    key: "archive",
   },
   {
     label: "Manage Users",
     icon: <PiUsersThree />,
-    isActive: false,
-    onClick: "handleClick",
+    key: "manage-users",
   },
   {
     label: "Account Settings",
     icon: <IoSettingsOutline />,
-    isActive: false,
-    onClick: "handleClick",
+    key: "account-settings",
   },
 ];
 
-interface SidemenuProps {
-  label: string;
-  icon: JSX.Element;
-  active: boolean;
-  onClick: (event: MouseEvent) => void;
-}
+const Sidemenu = () => {
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const navigate = useNavigate();
 
-// const handleTabSwitch = () => {
-//     setActiveTab
-// }
-
-const Sidemenu = ({ label, icon, isActive, onClick }: SidemenuProps) => {
-  const [activeTab, setActiveTab] = useState("Dashboard");
-  const [TabState, setTabState] = useState({
-    dashboard: true,
-    plagiarismChecher: false,
-    academicDivision: false,
-    archive: false,
-    manageUsers: false,
-    accountSettings: false,
-  });
+  const handleTabSwitch = (itemKey: string) => {
+    setActiveTab(itemKey);
+    if (itemKey === "dashboard") {
+      navigate("/dashboard");
+    } else {
+      navigate(itemKey);
+    }
+  };
 
   return (
     <MenuBar>
-      {menuItems.map((menuItem, id) => {
+      {menuItems.map((menuItem, index) => {
         return (
-          <React.Fragment key={id}>
-            {menuItem.isActive ? (
+          <React.Fragment key={index}>
+            {menuItem.key === activeTab ? (
               <Button className="w-full !justify-start">
                 {menuItem.icon}
                 {menuItem.label}
@@ -87,9 +73,7 @@ const Sidemenu = ({ label, icon, isActive, onClick }: SidemenuProps) => {
               <SecondaryButton
                 variant="plain"
                 className="w-full !justify-start"
-                onClick={() => {
-                  setActiveTab(menuItem.label);
-                }}
+                onClick={() => handleTabSwitch(menuItem.key)}
               >
                 {menuItem.icon}
                 {menuItem.label}
