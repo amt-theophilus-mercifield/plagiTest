@@ -1,9 +1,11 @@
-import React from 'react'
+import TestUpload from "../commons/TestUpload";
 
 const AcademicDivision = () => {
   return (
-    <div>AcademicDivision</div>
-  )
-}
+    <div>
+      Academic Division
+    </div>
+  );
+};
 
-export default AcademicDivision
+export default AcademicDivision;

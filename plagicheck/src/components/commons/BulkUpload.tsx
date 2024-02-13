@@ -1,39 +1,75 @@
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { SecondaryButton } from "./Button";
+import { Button, SecondaryButton } from "./Button";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-type Props = {};
 
-const BulkUpload = (props: Props) => {
-  const [file, setFile] = useState(null);
+const BulkUpload = () => {
+  const [progress, setProgress] = useState({
+    started: false,
+    percentageComplete: 0,
+  });
 
-  const handleUpload = () => {
-    // work on file
-    if (!file) {
-      console.log("No file selected");
-      return;
+  const [file, setFile] = useState<object | null>(null);
+
+  const [message, setMessage] = useState("");
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+      console.log(file);
+      console.log(typeof e.target.files);
+      console.log(e.target.files);
+    } else {
+      console.log("no file set");
     }
-    const fd = new FormData();
-    fd.append("file", file);
+  };
+
+ 
+  const handleFileUpload = async () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        await axios.post(
+          "https://0681-196-61-44-226.ngrok-free.app/api/lecturers/bulk",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        alert("File uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        alert("Failed to upload file");
+      }
+    } else {
+      alert("Please select a file to upload");
+    }
   };
 
   const handleDownload = () => {
     axios
-      .get("https://drive.google.com/file/d/1MmR9LoZ0lvWN6qeaKqIR1__KEgTFVe14/view?usp=sharing", {
-        responseType: "blob",
-        onDownloadProgress: function (progressEvent) {
-          if (progressEvent.event.lengthComputable) {
-            console.log(
-              ((progressEvent.loaded / progressEvent.total) * 100).toFixed() +
-                "%"
-            );
-          } else {
-            console.log("Download in progress, please wait..");
-          }
-        },
-      })
+      .get(
+        "https://docs.google.com/spreadsheets/d/1-oQ0AxPPmr5dqDWw1tentn3OefCNM0Qh8UpSearX8MY/edit?usp=sharing",
+        {
+          responseType: "blob",
+          onDownloadProgress: function (progressEvent) {
+            if (progressEvent.event.lengthComputable) {
+              console.log(
+                ((progressEvent.loaded / progressEvent.total) * 100).toFixed() +
+                  "%"
+              );
+            } else {
+              console.log("Download in progress, please wait..");
+            }
+          },
+        }
+      )
       .then((obj) => {
         console.log("download completed");
         const url = URL.createObjectURL(obj.data);
@@ -51,6 +87,12 @@ const BulkUpload = (props: Props) => {
 
   return (
     <Container>
+      {/* {message && (
+        <div className="pregress-bar absolute top-0 right-0 left-0 bottom-0 w-full h-full flex flex-col gap-2 items-center justify-center ">
+          <progress max="100" value={progress.percentageComplete}></progress>
+          <span>{message}</span>
+        </div>
+      )} */}
       <div className="Wrapper w-[100%] flex flex-col gap-10 items-start">
         <SecondaryButton variant="plain" className="!px-0">
           <FaArrowLeftLong />
@@ -61,7 +103,7 @@ const BulkUpload = (props: Props) => {
         </div>
         <div className="instruction">
           <h3>Instructions</h3>
-          <ol>
+          <ol className="list-decimal">
             <li>Download the CSV template</li>
             <li>
               Fill in the required information in the following format: Name
@@ -87,11 +129,20 @@ const BulkUpload = (props: Props) => {
             Choose a CSV file from your computer to initiate the bulk upload
             process.
           </p>
-          <div className="browse h-full">
-            <label htmlFor="browse" className="">
-              Browse
-            </label>
-            <input type="file" id="browse" hidden onChange={handleUpload} />
+          <div className="btns flex w-full h-full justify-between">
+            <div className="browseBtn h-full">
+              <label htmlFor="browseBtn" className="">
+                Browse
+              </label>
+              <input
+                className=""
+                type="file"
+                id="browseBtn"
+                hidden
+                onChange={handleFileChange}
+              />
+            </div>
+            <SecondaryButton onClick={handleFileUpload} className="w-[197px]">Upload</SecondaryButton>
           </div>
         </div>
       </div>
@@ -104,12 +155,13 @@ export default BulkUpload;
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  display: relative;
 
   h3 {
     font-weight: bold;
   }
 
-  .browse {
+  .browseBtn {
     display: flex;
     width: 197px;
     justify-content: center;
