@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { CiUser } from "react-icons/ci";
 import { MdPassword } from "react-icons/md";
@@ -6,6 +6,11 @@ import { MdOutlineDeleteSweep } from "react-icons/md";
 import profile from "./../../assets/profile.png";
 import { Button } from "../commons/Button";
 import { SecondaryButton } from "../commons/Button";
+
+// interface accountMenuItemsProps {
+//   index: number;
+
+// }
 
 const accountMenuItems = [
   {
@@ -48,6 +53,13 @@ const personalInformation = [
   },
 ];
 
+// const [activeIndex, setActiveIndex] = useState('')
+
+// const handleActiveIndex = (index:number) =>{
+//   setActiveIndex(index)
+// }
+
+
 const AccountSettings = () => {
   return (
     <Container>
@@ -55,7 +67,14 @@ const AccountSettings = () => {
         <div className="menu flex flex-col gap-6">
           {accountMenuItems.map((accountMenuItems, index) => (
             <React.Fragment key={index}>
-              <div className="flex items-center gap-2 ">
+              <div
+                key={index}
+                className={`flex items-center gap-2 ${
+                  index === 2 ? "text-[#FF0000]" : ""
+                
+                }`}
+                onClick={() => handleActiveIndex}
+              >
                 {accountMenuItems.icon}
                 {accountMenuItems.label}
               </div>
@@ -81,12 +100,26 @@ const AccountSettings = () => {
               </div>
             </div>
           </div>
-          <div className="">
-            {personalInformation.map((personalInformation) => (
-              <div className="flex flex-col ">
+
+          <div className="flex gap-[116px]">
+            {personalInformation.slice(0, 2).map((personalInformation) => (
+              <div className="flex flex-col gap-[6px]">
                 <label htmlFor="name">{personalInformation.label}</label>
                 <input
-                  style={{ height: "44px" }}
+                  style={{ width: "368px", height: "44px" }}
+                  placeholder={personalInformation.placeholder}
+                  className="text-[16px] px-4 py-[10px] border-2 rounded-lg focus:outline-[#4D4DFF]"
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex gap-[116px]">
+            {personalInformation.slice(2, 4).map((personalInformation) => (
+              <div className=" flex flex-col gap-[6px]">
+                <label htmlFor="name">{personalInformation.label}</label>
+                <input
+                  style={{ width: "368px", height: "44px" }}
                   placeholder={personalInformation.placeholder}
                   className="text-[16px] px-4 py-[10px] border-2 rounded-lg focus:outline-[#4D4DFF]"
                 />
