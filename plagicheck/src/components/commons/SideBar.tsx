@@ -13,10 +13,10 @@ import Sidemenu from "./Sidemenu";
 
 export const Sidebar = () => {
   return (
-    <div className="bg-[#E9E9EA] h-screen ">
+    <div className="bg-[#E9E9EA] h-screen border-r border-[#BCBCC0]">
       <div className="flex flex-col items-center">
         <div>
-          <img src={logo} alt="" className="mt-10 mb-9 w-[220px]" />
+          <img src={logo} alt="" className="mt-10 mb-9 w-[220px] " />
         </div>
         <div>
           <Sidemenu />

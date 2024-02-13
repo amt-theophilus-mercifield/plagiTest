@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 // import { CiSearch } from "react-icons/ci";
 // import { MdSchedule } from "react-icons/md";
 // import { LuHistory } from "react-icons/lu";
-// import { SlLogout } from "react-icons/sl";
+import { SlLogout } from "react-icons/sl";
 
 const menuItems = [
   {
@@ -59,35 +59,52 @@ const Sidemenu = () => {
     }
   };
 
-  useEffect(()=>{
-    const route = location.pathname.split('/').at(-1);
-    setActiveTab(route)
-  },[location.pathname])
+  useEffect(() => {
+    const route = location.pathname.split("/").at(-1);
+    setActiveTab(route);
+  }, [location.pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    navigate("/");
+  };
 
   return (
-    <MenuBar>
-      {menuItems.map((menuItem, index) => {
-        return (
-          <React.Fragment key={index}>
-            {menuItem.key === activeTab ? (
-              <Button className="w-full !justify-start">
-                {menuItem.icon}
-                {menuItem.label}
-              </Button>
-            ) : (
-              <SecondaryButton
-                variant="plain"
-                className="w-full !justify-start"
-                onClick={() => handleTabSwitch(menuItem.key)}
-              >
-                {menuItem.icon}
-                {menuItem.label}
-              </SecondaryButton>
-            )}
-          </React.Fragment>
-        );
-      })}
-    </MenuBar>
+    <div className="container flex flex-col w-full h-full justify-between gap-[200px]">
+      <MenuBar>
+        {menuItems.map((menuItem, index) => {
+          return (
+            <React.Fragment key={index}>
+              {menuItem.key === activeTab ? (
+                <Button className="w-full !justify-start">
+                  {menuItem.icon}
+                  {menuItem.label}
+                </Button>
+              ) : (
+                <SecondaryButton
+                  variant="plain"
+                  className="w-full !justify-start hover:text-blue-500"
+                  onClick={() => handleTabSwitch(menuItem.key)}
+                >
+                  {menuItem.icon}
+                  {menuItem.label}
+                </SecondaryButton>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </MenuBar>
+      <div className="logout">
+        <SecondaryButton
+          variant="plain"
+          onClick={handleLogout}
+          className="w-full !justify-start hover:text-red-500"
+        >
+          <SlLogout />
+          Logout
+        </SecondaryButton>
+      </div>
+    </div>
   );
 };
 
@@ -99,5 +116,6 @@ const MenuBar = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  /* justify-content: space-between; */
   gap: 10px;
 `;

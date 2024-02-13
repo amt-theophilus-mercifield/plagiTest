@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Button, SecondaryButton } from "./Button";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-
 const BulkUpload = () => {
   const [progress, setProgress] = useState({
     started: false,
@@ -26,9 +25,9 @@ const BulkUpload = () => {
     }
   };
 
- 
   const handleFileUpload = async () => {
     if (file) {
+
       const formData = new FormData();
       formData.append("file", file);
 
@@ -94,7 +93,7 @@ const BulkUpload = () => {
         </div>
       )} */}
       <div className="Wrapper w-[100%] flex flex-col gap-10 items-start">
-        <SecondaryButton variant="plain" className="!px-0">
+        <SecondaryButton variant="plain" className="!px-0 hover:text-blue-500 !hover:bg-none">
           <FaArrowLeftLong />
           Back
         </SecondaryButton>
@@ -138,11 +137,14 @@ const BulkUpload = () => {
                 className=""
                 type="file"
                 id="browseBtn"
+                name="upload"
                 hidden
                 onChange={handleFileChange}
               />
             </div>
-            <SecondaryButton onClick={handleFileUpload} className="w-[197px]">Upload</SecondaryButton>
+            <SecondaryButton onClick={handleFileUpload} className="w-[197px]">
+              Upload
+            </SecondaryButton>
           </div>
         </div>
       </div>
@@ -157,7 +159,7 @@ const Container = styled.div`
   height: 100%;
   display: relative;
 
-  h3 {
+  h3, h2 {
     font-weight: bold;
   }
 
