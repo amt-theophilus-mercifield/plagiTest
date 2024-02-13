@@ -6,6 +6,7 @@ import { MdOutlineDeleteSweep } from "react-icons/md";
 import profile from "./../../assets/profile.png";
 import { Button } from "../commons/Button";
 import { SecondaryButton } from "../commons/Button";
+import { BsFillCameraFill } from "react-icons/bs";
 
 const accountMenuItems = [
   {
@@ -52,12 +53,12 @@ const passwordDetails = [
   {
     label: "Current Password",
     placeholder: "Enter your current password",
-    key: "current-password"
+    key: "current-password",
   },
   {
     label: "New Passsword",
     placeholder: "Enter your new password",
-    current: "new-password"
+    current: "new-password",
   },
   {
     label: "Confirm Password",
@@ -66,13 +67,11 @@ const passwordDetails = [
   },
 ];
 
-
 const AccountSettings = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const toogleActiveIndex = (index: number) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? -1 : index));
-
   };
 
   return (
@@ -112,11 +111,21 @@ const AccountSettings = () => {
                 Personal Information
               </h2>
               <div className="flex items-center gap-[24px] ">
-                <img
-                  src={profile}
-                  alt=""
-                  className="rounded-full w-[114px] h-[114px] object-cover"
-                />
+                <div className="relative">
+                  <img
+                    src={profile}
+                    alt=""
+                    className="rounded-full w-[114px] h-[114px] object-cover shadow-lg"
+                  />
+                  <div className="container bg-white flex items-center justify-center w-[40px] h-[40px] rounded-[50%] absolute bottom-0 right-0">
+                    <div className="bg-[#CCD3E0] flex items-center justify-center w-[35px] h-[35px] rounded-[50%]">
+                      <BsFillCameraFill
+                        className="w-[20px] h-[20px]"
+                        color="#0267FF"
+                      />
+                    </div>
+                  </div>
+                </div>
                 <div className="gap-[8px]">
                   <p className="text-[19.2px] text-[#000000] ">Esther Howard</p>
                   <p className="text-[16px] text-[#1A1A2A]">Staff ID: 1245</p>
@@ -126,7 +135,7 @@ const AccountSettings = () => {
 
             <div className="flex gap-[116px]">
               {personalInformation.slice(0, 2).map((personalInformation) => (
-                <div className="flex flex-col gap-[6px]">
+                <div className="flex flex-col gap-[6px] text-[14px] text-[#000112]">
                   <label htmlFor="name">{personalInformation.label}</label>
                   <input
                     style={{ width: "368px", height: "44px" }}
@@ -139,7 +148,7 @@ const AccountSettings = () => {
 
             <div className="flex gap-[116px]">
               {personalInformation.slice(2, 4).map((personalInformation) => (
-                <div className=" flex flex-col gap-[6px]">
+                <div className=" flex flex-col gap-[6px] text-[14px] text-[#000112]">
                   <label htmlFor="name">{personalInformation.label}</label>
                   <input
                     style={{ width: "368px", height: "44px" }}
@@ -155,21 +164,28 @@ const AccountSettings = () => {
         {activeIndex == 1 && (
           <div className="flex flex-col gap-[54px]">
             <div className="flex flex-col gap-[6px]">
-              <h2 className="text-[#1A1A2A] font-semibold text-[19.2px]">Password</h2>
-              <p className="text-[16px]">Please enter your current password to change your password</p>
+              <h2 className="text-[#1A1A2A] font-semibold text-[19.2px]">
+                Password
+              </h2>
+              <p className="text-[16px]">
+                Please enter your current password to change your password
+              </p>
               <hr className="w-[447px]  mt-3" />
             </div>
             {passwordDetails.map((passwordDetails, index) => (
               <div className="flex flex-col gap-[8px] ">
-                <label htmlFor="name" className="text-[14px] font-bold">{passwordDetails.label}</label>
+                <label htmlFor="name" className="text-[14px] font-bold">
+                  {passwordDetails.label}
+                </label>
                 <input
                   style={{ width: "392px", height: "44px" }}
                   placeholder={passwordDetails.placeholder}
                   className="text-[16px] px-4 py-[10px] border-2 rounded-lg focus:outline-[#4D4DFF]"
                 />
                 {index === 1 && (
-                  <span className="text-[14px] text-gray-500 ">Must be alpha-numeric and must be more than 8 characters</span>
-
+                  <span className="text-[14px] text-gray-500 ">
+                    Must be alpha-numeric and must be more than 8 characters
+                  </span>
                 )}
               </div>
             ))}
