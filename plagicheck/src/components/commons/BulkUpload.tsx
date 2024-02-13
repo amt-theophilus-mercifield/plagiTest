@@ -1,7 +1,8 @@
+import { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { SecondaryButton } from "./Button";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { useState } from "react";
 
 type Props = {};
 
@@ -16,6 +17,36 @@ const BulkUpload = (props: Props) => {
     }
     const fd = new FormData();
     fd.append("file", file);
+  };
+
+  const handleDownload = () => {
+    axios
+      .get("https://drive.google.com/file/d/1MmR9LoZ0lvWN6qeaKqIR1__KEgTFVe14/view?usp=sharing", {
+        responseType: "blob",
+        onDownloadProgress: function (progressEvent) {
+          if (progressEvent.event.lengthComputable) {
+            console.log(
+              ((progressEvent.loaded / progressEvent.total) * 100).toFixed() +
+                "%"
+            );
+          } else {
+            console.log("Download in progress, please wait..");
+          }
+        },
+      })
+      .then((obj) => {
+        console.log("download completed");
+        const url = URL.createObjectURL(obj.data);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "users-template.csv";
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -46,7 +77,7 @@ const BulkUpload = (props: Props) => {
             Download the CSV template to fill in the required information for
             bulk upload.
           </p>
-          <SecondaryButton className="!w-[197px]">
+          <SecondaryButton onClick={handleDownload} className="!w-[197px]">
             Download Template
           </SecondaryButton>
         </div>

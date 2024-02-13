@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const departments = [
   {
@@ -23,23 +23,29 @@ const departments = [
   },
 ];
 
-const SelectComponent = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface PropTypes {
+  setSelected: React.Dispatch<React.SetStateAction<string>>,
+  selected: string,
+}
 
+const SelectComponent = ({ setSelected, selected }: PropTypes) => {
+  const [isOpen, setIsOpen] = useState(false);
   const toggleDepartment = () => {
     setIsOpen((prev) => !prev);
   };
 
   useEffect(() => {
-    // window.addEventListener("click", (event: Event) => {
-    //   const id = event.target.id;
-    //   if (
-    //     id !== "selectParent" ||
-    //     event.target.parentNode.id !== "selectParent"
-    //   ) {
-    //     setIsOpen(false);
-    //   }
-    // });
+    window.addEventListener("click", (event: Event) => {
+      const id = event.target?.id;
+      const parentId = event.target?.parentNode?.id;
+
+      if (id === "selectParent" || parentId === "selectParent") {
+        toggleDepartment();
+      } else {
+        setIsOpen(false);
+      }
+     
+    });
   }, []);
 
   return (
@@ -47,18 +53,28 @@ const SelectComponent = () => {
       <div
         id="selectParent"
         className="w-full relative text-[16px] px-4 py-[10px] border-2 rounded-lg focus:outline-[#4D4DFF]"
-        onClick={toggleDepartment}
       >
-        <h3 className="text-[#A6A6AB]">Select department</h3>
+        <h3 className={`${selected ? "text-black" : "text-[#A6A6AB]"}`}>
+          {selected
+            ? departments.find((el) => el.key === selected).name
+            : "Select department"}
+        </h3>
       </div>
       {isOpen && (
         <div className="drop-down w-[413px] h absolute bg-white px-6 py-8 rounded-lg flex flex-col gap-4 shadow-md ">
           {departments.map((department, index) => (
-            <div key={index} className="radio flex gap-2">
+            <div
+              key={index}
+              className="radio flex gap-2"
+              onClick={() => {
+                setSelected(department.key);
+              }}
+            >
               <input
                 type="radio"
                 name={department.designation}
                 id={department.key}
+                checked={department.key === selected}
               />
               <label htmlFor={department.key}>{department.name}</label>
             </div>

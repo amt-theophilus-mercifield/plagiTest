@@ -8,13 +8,23 @@ import Archive from "./components/dashboard/Archive.tsx";
 import ManageStudents from "./components/dashboard/ManageStudents.tsx";
 import AccountSettings from "./components/dashboard/AccountSettings.tsx";
 import { DashboardLayout } from "./routes/DashboardLayout.tsx";
+import TestLogin from "./components/commons/TestLogin.tsx";
+import DashboardProtectedRoute from "./routes/protectedRoutes/DashboardProtectedRoute.tsx";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/login" element={<TestLogin />} />
         <Route path="/" element={<LoginPage />} />
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route
+          path="/dashboard"
+          element={
+            <DashboardProtectedRoute>
+              <DashboardLayout />
+            </DashboardProtectedRoute>
+          }
+        >
           <Route path="" index element={<DashboardPage />} />
           <Route path="plagiarism-checker" element={<PlagiarismChecker />} />
           <Route path="academic-division" element={<AcademicDivision />} />

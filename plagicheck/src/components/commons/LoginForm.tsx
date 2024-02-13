@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik, Form, Field } from "formik";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
@@ -11,6 +12,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import Logo from "../../assets/plagicheck-logo.png";
 import { useAtom } from "jotai";
 import { errorAtom } from "./Alert";
+import { Api } from "../../api";
 
 interface FormValues {
   username: string;
@@ -26,67 +28,90 @@ const validationSchema = object().shape({
 
 export const LoginForm: React.FC = () => {
   const [alertState, setAlertState] = useAtom(errorAtom);
-
+  const [loginResponse, setLoginResponse] = useState("");
+  const navigate = useNavigate();
   const initialValues: FormValues = { username: "", password: "" };
-
   const [showPassword, setShowPassword] = useState(false);
-
   const [forgotPassword, setForgotPassword] = useState(false);
 
-  const [formValues, setFormValues] = useState(initialValues);
-
-  const handleSubmit = (values: FormValues): void => {
-    console.log(values);
-    // API calls for authentication
-
-    fetch("http://localhost:8000/home", {
-      method: "POST",
-      body: JSON.stringify({
-        userName: formValues.username,
-        password: formValues.password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    const loginRes = {
-      message: "Login successful",
-      status: 200,
+  
+  const handleSubmit = async (values: FormValues): void => {
+    const payload = {
+      userName: values.username,
+      password: values.password,
     };
 
-    if (loginRes.status === 200 || loginRes.status === 201) {
-      setAlertState(() => {
-        return {
-          show: true,
-          error: false,
-          message: loginRes.message,
-        };
+    try {
+      const res = await Api.post("login", payload);
+      console.log("res:::", res);
+      const token = res.data?.token;
+      localStorage.setItem("accessToken", token);
+      setAlertState({
+        message: "Login successful",
+        show: true,
+        error: false,
       });
-    } else {
-      setAlertState(() => {
-        return {
-          show: true,
-          error: true,
-          message: "Wrong credentials",
-        };
-      });
-    }
 
-    setTimeout(() => {
-      setAlertState((prev) => {
-        return {
-          ...prev,
+      setTimeout(() => {
+        setAlertState({
+          message: "",
           show: false,
-        };
+          error: false,
+        });
+        setTimeout(() => {
+          navigate("/dashboard/archive");
+        }, 1000);
+      }, 2000);
+    } catch (error) {
+      console.log("error::", error);
+      setAlertState({
+        message: error.response.data?.detail,
+        show: true,
+        error: true,
       });
-    }, 2000);
+      setTimeout(() => {
+        setAlertState({
+          message: "",
+          show: false,
+          error: true,
+        });
+      }, 2000);
+    }
+    
+    // const loginRes = {
+    //   message: "Login successful",
+    //   status: 200,
+    // };
+
+    // if (loginRes.status === 200 || loginRes.status === 201) {
+    //   setAlertState(() => {
+    //     setTimeout(()=>{
+    //       navigate("/dashboard/archive");
+    //     },2000)
+    //     return {
+    //       show: true,
+    //       error: false,
+    //       message: loginRes.message,
+    //     };
+    //   });
+    // } else {
+    //   setAlertState(() => {
+    //     return {
+    //       show: true,
+    //       error: true,
+    //       message: "Wrong credentials",
+    //     };
+    //   });
+    // }
+
+    // setTimeout(() => {
+    //   setAlertState((prev) => {
+    //     return {
+    //       ...prev,
+    //       show: false,
+    //     };
+    //   });
+    // }, 2000);
   };
 
   const handlePasswordReset = () => {
@@ -152,7 +177,7 @@ export const LoginForm: React.FC = () => {
               <h3 className={`text-2xl font-bold`}>
                 {forgotPassword ? "Forgot password" : "Login"}
               </h3>
-              <span className={`font`}>
+              <span className={``}>
                 {forgotPassword
                   ? "Please enter your email to receive the reset link in your mail."
                   : "Please enter your login details below to access your account."}
@@ -279,7 +304,7 @@ export const LoginForm: React.FC = () => {
               </div>
 
               {forgotPassword && (
-                <SecondaryButton variant="plain" onClick={toggleBackToLogin}>
+                <SecondaryButton onClick={toggleBackToLogin}>
                   <FaArrowLeftLong />
                   Back to Login
                 </SecondaryButton>

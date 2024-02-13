@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, SecondaryButton } from "./Button";
 import { MdOutlineDashboard } from "react-icons/md";
@@ -7,7 +7,7 @@ import { GoDatabase } from "react-icons/go";
 import { PiUsersThree } from "react-icons/pi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // import { CiSearch } from "react-icons/ci";
 // import { MdSchedule } from "react-icons/md";
 // import { LuHistory } from "react-icons/lu";
@@ -49,15 +49,20 @@ const menuItems = [
 const Sidemenu = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleTabSwitch = (itemKey: string) => {
-    setActiveTab(itemKey);
     if (itemKey === "dashboard") {
       navigate("/dashboard");
     } else {
       navigate(itemKey);
     }
   };
+
+  useEffect(()=>{
+    const route = location.pathname.split('/').at(-1);
+    setActiveTab(route)
+  },[location.pathname])
 
   return (
     <MenuBar>
