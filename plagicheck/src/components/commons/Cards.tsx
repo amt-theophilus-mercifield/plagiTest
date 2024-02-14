@@ -6,7 +6,7 @@ const cardLabels = [
   {
     icon: <PiUsersThreeLight />,
     title: "Number of Lectures",
-    number: "1020",
+    number: 1020,
     key: "lecturer",
     background: "#CCE1FF",
     text: "#0267FF",
@@ -14,7 +14,7 @@ const cardLabels = [
   {
     icon: <TbUsers />,
     title: "Number of Students",
-    number: "1020",
+    number: 1020,
     key: "student",
     background: "#CCFACC",
     text: "#00E600",
@@ -22,7 +22,7 @@ const cardLabels = [
   {
     icon: <LiaUserSolid />,
     title: "Student submission",
-    number: "1020",
+    number: 1020,
     key: "student-submission",
     background: "#FFEDCC",
     text: "#FF0000",
@@ -41,12 +41,12 @@ const Cards = () => {
               {cardLabels.icon}
             </div>
           </div>
-          <div className="flex flex-col gap-4">
-            <div className="text-xl font-semibold text-[#333441]">
+          <div className="flex flex-col lg:gap-4">
+            <div className="text-md font-semibold text-[#333441]">
               {cardLabels.title}
             </div>
-            <div className="text-2xl text-gray-500 font-semibold">
-              {cardLabels.number}
+            <div className="text-lg text-gray-500 font-semibold">
+              {cardLabels.number.toLocaleString()}
             </div>
           </div>
         </div>
