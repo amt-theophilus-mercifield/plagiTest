@@ -58,12 +58,12 @@ const passwordDetails = [
   {
     label: "New Passsword",
     placeholder: "Enter your new password",
-    current: "new-password",
+    key: "new-password",
   },
   {
     label: "Confirm Password",
     placeholder: "Confirm your new password",
-    current: "confirm-password",
+    key: "confirm-password",
   },
 ];
 
