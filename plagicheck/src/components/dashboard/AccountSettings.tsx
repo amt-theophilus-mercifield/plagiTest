@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { CiUser } from "react-icons/ci";
-import { MdPassword } from "react-icons/md";
+import { TbLock } from "react-icons/tb";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import profile from "./../../assets/profile.png";
 import { Button } from "../commons/Button";
@@ -16,7 +16,7 @@ const accountMenuItems = [
   },
   {
     label: "Password",
-    icon: <MdPassword />,
+    icon: <TbLock />,
     key: "password",
   },
   {
@@ -132,31 +132,31 @@ const AccountSettings = () => {
                 </div>
               </div>
             </div>
+            <div className="">
+              <div className="form2 w-full h-full grid xl:grid-cols-2 gap-9">
+                {personalInformation.map((personalInformation) => (
+                  <div className="flex flex-col gap-[6px] text-[14px] text-[#000112]">
+                    <label htmlFor="name">{personalInformation.label}</label>
+                    <input
+                      placeholder={personalInformation.placeholder}
+                      className="xl:w-[80%] h-[44px] text-[16px] px-4 py-[10px] border-2 rounded-lg focus:outline-[#4D4DFF]"
+                    />
+                  </div>
+                ))}
+              </div>
 
-            <div className="flex gap-[116px]">
-              {personalInformation.slice(0, 2).map((personalInformation) => (
-                <div className="flex flex-col gap-[6px] text-[14px] text-[#000112]">
-                  <label htmlFor="name">{personalInformation.label}</label>
-                  <input
-                    style={{ width: "368px", height: "44px" }}
-                    placeholder={personalInformation.placeholder}
-                    className="text-[16px] px-4 py-[10px] border-2 rounded-lg focus:outline-[#4D4DFF]"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex gap-[116px]">
-              {personalInformation.slice(2, 4).map((personalInformation) => (
-                <div className=" flex flex-col gap-[6px] text-[14px] text-[#000112]">
-                  <label htmlFor="name">{personalInformation.label}</label>
-                  <input
-                    style={{ width: "368px", height: "44px" }}
-                    placeholder={personalInformation.placeholder}
-                    className="text-[16px] px-4 py-[10px] border-2 rounded-lg focus:outline-[#4D4DFF]"
-                  />
-                </div>
-              ))}
+              {/* <div className="">
+                {personalInformation.slice(2, 4).map((personalInformation) => (
+                  <div className=" flex flex-col gap-[6px] text-[14px] text-[#000112]">
+                    <label htmlFor="name">{personalInformation.label}</label>
+                    <input
+                      style={{ width: "368px", height: "44px" }}
+                      placeholder={personalInformation.placeholder}
+                      className="text-[16px] px-4 py-[10px] border-2 rounded-lg focus:outline-[#4D4DFF]"
+                    />
+                  </div>
+                ))}
+              </div> */}
             </div>
           </div>
         )}
