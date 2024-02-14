@@ -1,7 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
+import { Api } from "../../api";
 import styled from "styled-components";
-import { Button, SecondaryButton } from "./Button";
+import { SecondaryButton } from "./Button";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 const BulkUpload = () => {
@@ -17,39 +18,50 @@ const BulkUpload = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
-      console.log(file);
-      console.log(typeof e.target.files);
-      console.log(e.target.files);
+      console.log(e.target.files[0]);
+      const formData = new FormData();
+      formData.append("file", e.target.files[0]);
+
+      (async () => {
+        try {
+          const res = await Api.post("lecturers/bulk", formData, {
+            headers: {
+              "Content-Type": "multipart/part/form-data",
+            },
+          });
+          console.log("res:::",res);
+        } catch (error) {
+          console.error("Error uploading file:", error);
+          alert("Failed to upload file");
+        }
+      })()
     } else {
       console.log("no file set");
     }
   };
 
-  const handleFileUpload = async () => {
-    if (file) {
+  // const handleFileUpload = async () => {
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append("file", file);
 
-      const formData = new FormData();
-      formData.append("file", file);
-
-      try {
-        await axios.post(
-          "https://0681-196-61-44-226.ngrok-free.app/api/lecturers/bulk",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        alert("File uploaded successfully!");
-      } catch (error) {
-        console.error("Error uploading file:", error);
-        alert("Failed to upload file");
-      }
-    } else {
-      alert("Please select a file to upload");
-    }
-  };
+  //     try {
+  //       // await axios.post(
+  //       //   "https://0681-196-61-44-226.ngrok-free.app/api/lecturers/bulk",
+  //       const res = await Api.post("lecturers/bulk", formData, {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       });
+  //       alert("File uploaded successfully!");
+  //     } catch (error) {
+  //       console.error("Error uploading file:", error);
+  //       alert("Failed to upload file");
+  //     }
+  //   } else {
+  //     alert("Please select a file to upload");
+  //   }
+  // };
 
   const handleDownload = () => {
     axios
@@ -93,7 +105,10 @@ const BulkUpload = () => {
         </div>
       )} */}
       <div className="Wrapper w-[100%] flex flex-col gap-10 items-start">
-        <SecondaryButton variant="plain" className="!px-0 hover:text-blue-500 !hover:bg-none">
+        <SecondaryButton
+          variant="plain"
+          className="!px-0 hover:text-blue-500 !hover:bg-none"
+        >
           <FaArrowLeftLong />
           Back
         </SecondaryButton>
@@ -142,9 +157,6 @@ const BulkUpload = () => {
                 onChange={handleFileChange}
               />
             </div>
-            <SecondaryButton onClick={handleFileUpload} className="w-[197px]">
-              Upload
-            </SecondaryButton>
           </div>
         </div>
       </div>
@@ -159,7 +171,8 @@ const Container = styled.div`
   height: 100%;
   display: relative;
 
-  h3, h2 {
+  h3,
+  h2 {
     font-weight: bold;
   }
 
