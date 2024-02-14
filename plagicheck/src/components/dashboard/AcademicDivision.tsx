@@ -1,11 +1,15 @@
-import TestUpload from "../commons/TestUpload";
+import styled from "styled-components";
 
 const AcademicDivision = () => {
   return (
-    <div>
+    <Container>
       Academic Division
-    </div>
+    </Container>
   );
 };
 
 export default AcademicDivision;
+
+const Container = styled.div`
+padding: 20px 41px;
+`

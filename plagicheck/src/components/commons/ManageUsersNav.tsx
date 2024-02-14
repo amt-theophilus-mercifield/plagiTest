@@ -4,7 +4,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
 import { useState } from "react"
 
-const ManageStudents = () => {
+const ManageUsersNav = () => {
   const [activeTab, setActiveTab] = useState("lectures");
 
   const handleTabClick = (tab: string) => {
@@ -44,10 +44,10 @@ const ManageStudents = () => {
             </div>
           </div>
           <div className="flex gap-4">
-            <SecondaryButton variant="plain">
+            <SecondaryButton>
               Filter by: All <TfiFilter />
             </SecondaryButton>
-            <SecondaryButton variant="plain">
+            <SecondaryButton>
               Bulk upload <IoCloudUploadOutline />
             </SecondaryButton>
             <Button>
@@ -60,4 +60,4 @@ const ManageStudents = () => {
   );
 };
 
-export default ManageStudents;
+export default ManageUsersNav;

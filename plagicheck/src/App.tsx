@@ -5,7 +5,7 @@ import DashboardPage from "./components/DashboardPage";
 import PlagiarismChecker from "./components/dashboard/PlagiarismChecker.tsx";
 import AcademicDivision from "./components/dashboard/AcademicDivision.tsx";
 import Archive from "./components/dashboard/Archive.tsx";
-import ManageStudents from "./components/dashboard/ManageStudents.tsx";
+import ManageStudents from "./components/dashboard/ManageUsers.tsx";
 import AccountSettings from "./components/dashboard/AccountSettings.tsx";
 import { DashboardLayout } from "./routes/DashboardLayout.tsx";
 import TestLogin from "./components/commons/TestLogin.tsx";

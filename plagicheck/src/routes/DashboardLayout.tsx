@@ -9,7 +9,7 @@ export const DashboardLayout = () => {
       <Sidebar />
       <div className="Content">
         <NavBar />
-        <div className="dashboard-content bulkDataWrapper px-[41px] py-[20px] mb-4 overflow-y-auto">
+        <div className="dashboard-content bulkDataWrapper mb-4 overflow-y-auto">
           <Outlet />
         </div>
       </div>

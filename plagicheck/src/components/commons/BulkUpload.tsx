@@ -149,7 +149,7 @@ const BulkUpload = () => {
                 Browse
               </label>
               <input
-                className=""
+                className="w-full h-full"
                 type="file"
                 id="browseBtn"
                 name="upload"
@@ -170,6 +170,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   display: relative;
+  padding: 20px 41px;
 
   h3,
   h2 {

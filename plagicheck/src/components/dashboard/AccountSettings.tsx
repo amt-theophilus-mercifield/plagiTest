@@ -76,24 +76,16 @@ const AccountSettings = () => {
 
   return (
     <Container>
-      <div className="settings-menu">
+      <div className="settings-menu flex justify-center py-[20px]">
         <div className="menu flex flex-col gap-6">
           {accountMenuItems.map((accountMenuItems, index) => (
             <React.Fragment key={index}>
               <div
                 key={index}
                 onClick={() => index !== 2 && toogleActiveIndex(index)}
-                className={`flex items-center gap-2 text-[16px] ${
-                  index === activeIndex ? "" : ""
+                className={`flex items-center gap-2 text-[16px] p-[10px] w-[172px] rounded-lg cursor-pointer ${
+                  index === activeIndex ? "bg-[#CCE1FF]" : ""
                 } ${index === 2 ? "text-[#FF0000]" : ""}`}
-                style={{
-                  backgroundColor:
-                    index === activeIndex ? "#CCE1FF" : "transparent",
-                  color: index === activeIndex ? "#0267FF" : "",
-                  padding: "10px ",
-                  width: "172px",
-                  borderRadius: "8px",
-                }}
               >
                 {accountMenuItems.icon}
                 {accountMenuItems.label}
@@ -144,19 +136,6 @@ const AccountSettings = () => {
                   </div>
                 ))}
               </div>
-
-              {/* <div className="">
-                {personalInformation.slice(2, 4).map((personalInformation) => (
-                  <div className=" flex flex-col gap-[6px] text-[14px] text-[#000112]">
-                    <label htmlFor="name">{personalInformation.label}</label>
-                    <input
-                      style={{ width: "368px", height: "44px" }}
-                      placeholder={personalInformation.placeholder}
-                      className="text-[16px] px-4 py-[10px] border-2 rounded-lg focus:outline-[#4D4DFF]"
-                    />
-                  </div>
-                ))}
-              </div> */}
             </div>
           </div>
         )}
@@ -204,6 +183,7 @@ const AccountSettings = () => {
 export default AccountSettings;
 
 const Container = styled.div`
+  /* padding: 20px 41px; */
   width: 100%;
   height: 100%;
   grid-template-columns: 226px 1fr;
