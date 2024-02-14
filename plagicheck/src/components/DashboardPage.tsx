@@ -1,11 +1,13 @@
 import React from "react";
 import AddModal from "./modals/AddModal";
+import Cards from "./commons/Cards";
 
 const DashboardPage = () => {
   return (
     <>
-      <AddModal />
-      <div>DashboardPage</div>
+      {/* <AddModal /> */}
+      <Cards/>
+      <div></div>
     </>
   );
 };

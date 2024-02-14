@@ -115,7 +115,7 @@ const AccountSettings = () => {
                   <img
                     src={profile}
                     alt=""
-                    className="rounded-full w-[114px] h-[114px] object-cover shadow-lg"
+                    className="rounded-full w-[114px] h-[114px] object-cover shadow"
                   />
                   <div className="container bg-white flex items-center justify-center w-[40px] h-[40px] rounded-[50%] absolute bottom-0 right-0">
                     <div className="bg-[#CCD3E0] flex items-center justify-center w-[35px] h-[35px] rounded-[50%]">
