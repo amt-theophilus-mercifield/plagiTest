@@ -98,7 +98,7 @@ const BulkUpload = () => {
           Back
         </SecondaryButton>
         <div className="">
-          <h2>Bulk Upload for Lecturers</h2>
+          <h2 className="text-2xl">Bulk Upload for Lecturers</h2>
         </div>
         <div className="instruction">
           <h3>Instructions</h3>
